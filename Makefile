@@ -1,5 +1,5 @@
 FC=gfortran
-FFLAGS=
+FFLAGS=-cpp -ffree-line-length-512 #-DWARNING_OFF -DASSERT_OFF -DVERBOSE_OFF -DDEBUG_OFF
 
 all: tests
 
@@ -12,7 +12,10 @@ test_fprop: test_fprop.f90 fprop.o fdict.o
 test_fdict: test_fdict.f90 fdict.o
 	$(FC) $(FFLAGS) -c test_fdict.f90
 	$(FC) -o tests/test_fdict test_fdict.o fdict.o
-	
+
+test_fassert: test_fassert.f90 fassert.fpp
+	$(FC) $(FFLAGS) -o tests/test_fassert test_fassert.f90
+
 fdict.o: fdict.f90
 	$(FC) $(FFLAGS) -c fdict.f90
 
@@ -27,7 +30,9 @@ clean:
 cleanall: clean
 	rm -f tests/test_fdict
 	rm -f tests/test_fprop
+	rm -f tests/test_fassert
 
 run: 
 	cd tests && ./test_fdict
 	cd tests && ./test_fprop
+	cd tests && ./test_fassert
