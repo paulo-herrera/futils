@@ -6,8 +6,8 @@ the high performance that can be achieved by compilers.
 However, because of its long history, it is known for including what are 
 considered today *poor programming practices* that make difficult to write
 clear and easy to debug code. Furthemore, the original language lack flexibility
-to write general use libraries for handling parts of programms to deal with 
-aspects beyond strict numerical calculations.
+to write general use libraries for handling parts of programs that deal with 
+aspects beyond strict numerical computations.
 
 Since FORTRAN 90, the language has received changes that have made possible
 to use *modern* and *safer* programming style. This is the main motivation for
@@ -26,8 +26,8 @@ To compile and use those examples, it should be enough to type in the source dir
 
 # DOCUMENTATION
 
-The examples shoudl provide enough documentation to start using the library. Morever,
-the small size and long self-explanatory names of types and subroutines should make
+The examples should provide enough documentation to start using the library. Morever,
+the small size and self-explanatory names of types and subroutines should make
 its use straightforward.
 
 # BUG REPORTING
