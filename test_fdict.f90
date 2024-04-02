@@ -53,6 +53,6 @@ integer    :: n, i
 	call delete_dict(d)
 	call print_dict(d)
 	
-	print*, "*** TEST 1: ALL DONE ***"
+	print*, "**** TEST_FDICT: ALL DONE ****"
 
 end program

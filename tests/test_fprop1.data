@@ -1,0 +1,11 @@
+!little example for data base file
+viscosity_brine : 1.0d0  ! ref: NIST reference manual
+density_brine   : 1.0d0  ! article ref[10]
+!next are values for fresh water
+
+viscosity_water : 1.0d0  ! ref: NIST reference manual
+density_water   : 1.0d0  ! article ref[11]
+compressibility_water: 0.002d0
+! REFERENCES:
+! [1] nice article
+! [2] good article, etc
