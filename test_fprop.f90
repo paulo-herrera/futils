@@ -11,6 +11,7 @@ type(dict) :: db
 	
 	! should fail, wrong format
 	db = read_fprop("test_fprop2.data")
+	
 	! should fail, missing file
 	db = read_fprop("test_fprop3.data")
 
