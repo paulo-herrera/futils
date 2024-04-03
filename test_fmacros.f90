@@ -1,5 +1,5 @@
-#include "fassert.fpp"
-program test_assert
+#include "fmacros.fpp"
+program test_macros
 implicit none
 integer, parameter :: a = 1, b=2
 

@@ -25,6 +25,7 @@
 ! A simple implementation of a dictionary-like container with string keys and
 ! real values.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#include "fmacros.fpp"
 module fdict
 	use, intrinsic :: ieee_arithmetic
 	implicit none
@@ -82,9 +83,7 @@ contains
 		n = d%len
 		allocate(k(n))
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(delete_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary") 
 			return 
 		else
 			current => d%head
@@ -110,9 +109,7 @@ contains
 		n = d%len
 		allocate(k(n))
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(delete_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary")
 			return 
 		else
 			current => d%head
@@ -184,15 +181,13 @@ contains
 		in_dict = .false.
 	
 		if (len(key) > key_len_dict) then
-			print*, "WARNING(in_dict) -- key is longer than length of keys in dictionary"
-			print*, "WARNING(in_dict) -- returning FALSE"
+			WARNING(.false., "Key is longer than length of keys in dictionary")
+			WARNING(.false., "Returning FALSE")
 			in_dict = .false.
 		end if 
 		
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(in_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary")
 			in_dict = .false.
 		else
 			current => d%head
@@ -242,9 +237,7 @@ contains
 		type(record), pointer  :: next
 		
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(delete_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary")
 			return 
 		else
 			current => d%head
@@ -268,9 +261,7 @@ contains
 		type(record), pointer  :: current
 		
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(print_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary")
 			return 
 		else
 			current => d%head
@@ -291,9 +282,7 @@ contains
 		character(len=*), intent(in) :: format
 		
 		if (.not. associated(d%head)) then
-			if (warning_on) then
-				print*, "WARNING(print_dict) -- Empty dictionary"
-			end if
+			WARNING(warning_on, "Empty dictionary")
 			return 
 		else
 			current => d%head
