@@ -29,12 +29,13 @@
 #include "fmacros.fpp"
 module fprop
 	use fdict, only : dict, add_dict
+	use ftext, only : is_empty_line, is_comment_line, remove_comments
 	implicit none
 	private
 	public :: read_fprop
 	
 	logical, parameter :: warning_on = .true.
-	logical, parameter :: verbose_on = .false.
+	logical, parameter :: verbose_on = .true.
 	integer, parameter :: len_record = 256
 	character, parameter :: sep_char_fprop = ":"
 	character, parameter :: comment_char_fprop = "!"
@@ -77,13 +78,13 @@ contains
 		character(len=*), intent(out) :: var_value
 		character(len=len_record) :: buf
 		character(len=1024) :: tmp
-		integer :: icomment, isep
+		integer :: isep
 		
 		!print *, "line: ", trim(line)
-		icomment = scan(line, comment_char_fprop, .false.)
+		!icomment = scan(line, comment_char_fprop, .false.)
 		!print *, icomment
-		if (icomment > 0) then
-			buf = line(1:icomment-1)
+		if (is_comment_line(line, comment_char_fprop)) then
+			buf = remove_comments(line, comment_char_fprop)
 		else
 			buf = line
 		end if
@@ -93,9 +94,9 @@ contains
 		if (isep == 0) then
 			write(tmp, '(A,I5,A,A,A)') "at line ", nline," expected a separator character: <", sep_char_fprop, ">"
 			ERROR(.false., trim(tmp) ) 
-		    ERROR(.false., "   LINE: " // trim(buf))
-		    ierr = -1
-		    return
+!		    ERROR(.false., "   LINE: " // trim(buf))
+		    !ierr = -1
+		    !return
 		end if
 		
 		var_name = buf(1:isep-1)
@@ -112,7 +113,7 @@ contains
 	function read_fprop(src) result (db)
 		character(len=*), intent(in) :: src
 		type(dict)                   :: db
-		integer                      :: iunit, ierr, nline, nchars
+		integer                      :: iunit, ierr, nline
 		character(len=len_record)    :: buf
 		character(len=len_record)    :: var_name, var_value
 		real*8 :: variable
@@ -129,20 +130,19 @@ contains
 			end if
 			
 			nline = nline + 1 
-			if (verbose_on) then; write(tmp, '(A,I4, A2, A64)') "[L", nline,"] ", trim(buf); end if
+			if (verbose_on) then; write(tmp, '(A,I0.4, A2, A64)') "[L", nline,"] ", trim(buf); end if
 			VERBOSE(verbose_on, trim(tmp)) 
 			
-			nchars = len(trim(buf))
 			!print *, "nchars: ", nchars
-			if (nchars == 0) then
-				if (verbose_on) then; write(tmp, *) "Empty line at line # ", nline; end if
-				VERBOSE(verbose_on, tmp)
+			if (is_empty_line(buf)) then
+				!if (verbose_on) then; write(tmp, *) "Empty line at line # ", nline; end if
+				VERBOSE(verbose_on, "Empty line at line at " // tmp)
 				cycle
 			end if
 			
-			buf = trim(buf)
-			if (buf(1:1) == comment_char_fprop) then
-				!print *, "Got a comment,,, ", trim(buf)
+			!buf = trim(buf)
+			if (is_comment_line(buf, comment_char_fprop) ) then
+				!VERBOSE(verbose_on, "Got a comment: " // tmp)
 				cycle
 			end if 
 			

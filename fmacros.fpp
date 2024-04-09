@@ -28,33 +28,33 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !Logical errors that should always end program execution.
-#define ERROR(COND, MSG) if (.not. COND) then;	print '(A,A,A,I5,A,A,A,A)', '*ERROR*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; call abort; end if
+#define ERROR(COND, MSG) if (.not. COND) then;	print '(A,A,A,I0.5,A,A,A,A)', '*ERROR*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; call abort; end if
 
 !Test of expected conditions. It may impact performance, hence it is useful to be able to turn them off.
 #ifndef ASSERT_OFF
-#define ASSERT(COND, MSG) if (.not. COND) then;	print '(A,A,A,I5,A,A,A,A)', '*ASSERT*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; call abort; end if
+#define ASSERT(COND, MSG) if (.not. COND) then;	print '(A,A,A,I0.5,A,A,A,A)', '*ASSERT*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; call abort; end if
 #else
 #define ASSERT(COND,MSG) 
 #endif
 
 !Warnings, e.g. unexpected input.
 #ifndef WARNING_OFF
-!#define WARNING(COND, MSG) if (.not. COND) then; print '(A,A,A,I5,A,A,A,A)', '*WARNING*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; end if
-#define WARNING(COND, MSG) if (.not. COND) then; print '(A,A,A,I5,A,A)', '*WARNING*  ', __FILE__, "[Line", __LINE__, "]  ", MSG; end if
+!#define WARNING(COND, MSG) if (.not. COND) then; print '(A,A,A,I0.5,A,A,A,A)', '*WARNING*  ', __FILE__, "[Line", __LINE__, "]  <<", "COND", ">>  ", MSG; end if
+#define WARNING(COND, MSG) if (.not. COND) then; print '(A,A,A,I0.5,A,A)', '*WARNING*  ', __FILE__, "[Line", __LINE__, "]  ", MSG; end if
 #else
 #define WARNING(COND,MSG) 
 #endif
 
 !Useful to check intermediate steps during program execution.
 #ifndef VERBOSE_OFF
-#define VERBOSE(COND, MSG) if (COND) then; print '(A,A,A,I5,A,A)', '*VERBOSE*  ', __FILE__, "[Line", __LINE__, "]  ", MSG; end if
+#define VERBOSE(COND, MSG) if (COND) then; print '(A,A,A,I0.5,A,A)', '*VERBOSE*  ', __FILE__, "[Line", __LINE__, "]  ", MSG; end if
 #else
 #define VERBOSE(COND,MSG) 
 #endif
 
 !Useful during development.
 #ifndef DEBUG_OFF
-#define DEBUG(MSG) print '(A,A,A,I5,A,A)', '*DEBUG*  ', __FILE__, '[Line', __LINE__, ']  ', MSG
+#define DEBUG(MSG) print '(A,A,A,I0.5,A,A)', '*DEBUG*  ', __FILE__, '[Line', __LINE__, ']  ', MSG
 #else
 #define DEBUG(MSG) 
 #endif

@@ -16,4 +16,7 @@ type(dict) :: db
 	db = read_fprop("test_fprop3.data")
 
 	print *, "**** TEST_FPROP: ALL DONE ****"
+	print *, ""
+	print *, ""
+	
 end program 

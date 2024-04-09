@@ -54,5 +54,7 @@ integer    :: n, i
 	call print_dict(d)
 	
 	print*, "**** TEST_FDICT: ALL DONE ****"
+	print *, ""
+	print *, ""
 
 end program
